@@ -6403,6 +6403,11 @@ react-native-gesture-handler@~2.24.0:
     hoist-non-react-statics "^3.3.0"
     invariant "^2.2.4"
 
+react-native-input-select@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-input-select/-/react-native-input-select-2.1.7.tgz#cea53efcc7a9e6a5d31ad6019bbab70fee37f574"
+  integrity sha512-AoG/OuEUh/pKM3rE3Xh3ulW2LTFB+gKJoJVRqTuGGWiG3tTS8puJ08bcfTxDZ7i7bwLha7+b5zPED5WFD3Wc6w==
+
 react-native-is-edge-to-edge@1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/react-native-is-edge-to-edge/-/react-native-is-edge-to-edge-1.1.7.tgz#28947688f9fafd584e73a4f935ea9603bd9b1939"

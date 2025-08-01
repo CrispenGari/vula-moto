@@ -26,6 +26,7 @@ import Card from "@/src/components/Card/Card";
 import ProfileCard from "@/src/components/ProfileCard/ProfileCard";
 import SettingItem from "@/src/components/SettingItem/SettingItem";
 import { useMeStore } from "@/src/store/useMeStore";
+import LanguageTranslationSettingComponent from "@/src/components/LanguageTranslationSettingComponent/LanguageTranslationSettingComponent";
 
 const Page = () => {
   const navigation = useNavigation();
@@ -172,6 +173,7 @@ const Page = () => {
             <MaterialIcons name="vibration" size={18} color={COLORS.black} />
           }
         />
+        <LanguageTranslationSettingComponent />
       </Card>
 
       <Text style={styles.headerText}>Support</Text>

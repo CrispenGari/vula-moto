@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { STORAGE_NAME } from "../constants";
 import { zustandStorage } from "./storage";
+import { TLanguage } from "../types";
 
 export type TNotification = {
   messages: boolean;
@@ -24,11 +25,13 @@ export type TSettings = {
   storage: TStorage;
   notifications: TNotification;
   location: TLocation;
+  lang: TLanguage;
 };
 
 const initialSettings: TSettings = {
   haptics: true,
   sound: true,
+  lang: "en",
   storage: {
     wishlists: true,
   },

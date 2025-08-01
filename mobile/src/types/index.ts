@@ -2,6 +2,8 @@ import { TChat } from "@/convex/tables/chats";
 import { TItem } from "@/convex/tables/items";
 import { TUser } from "@/convex/tables/users";
 
+export type TLanguage = "en" | "xh" | "zu" | "af" | "st";
+
 export type TProduct = {
   productId: string;
   productName: string;

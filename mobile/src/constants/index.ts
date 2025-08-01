@@ -1,3 +1,13 @@
+export const SERVER_BASE_URL = "http://10.20.62.129:3001";
+
+export const LANGUAGE_OPTIONS = [
+  { id: 0, name: "English", value: "en" },
+  { id: 1, name: "isiXhosa", value: "xh" },
+  { id: 2, name: "isiZulu", value: "zu" },
+  { id: 3, name: "Afrikaans", value: "af" },
+  { id: 4, name: "Sesotho", value: "st" },
+];
+
 export const COLORS = {
   main: "#F1F0E4",
   primary: "#BCA88D",
