@@ -9,6 +9,7 @@ import {
   Text,
   TextStyle,
   TouchableOpacity,
+  View,
   ViewStyle,
 } from "react-native";
 
@@ -22,6 +23,7 @@ interface Props {
   color?: string;
   indicatorColor?: string;
   disabled?: boolean;
+  Icon?: React.ReactNode;
 }
 const Button = ({
   onPress,
@@ -33,6 +35,7 @@ const Button = ({
   color = COLORS.secondary,
   indicatorColor = COLORS.white,
   disabled,
+  Icon,
 }: Props) => {
   const { settings } = useSettingsStore();
   return (
@@ -70,18 +73,27 @@ const Button = ({
       {loading ? (
         <ActivityIndicator color={indicatorColor} size={"small"} />
       ) : (
-        <Text
-          style={[
-            {
-              fontFamily: FONTS.bold,
-              color: COLORS.white,
-              fontSize: 18,
-            },
-            titleStyle,
-          ]}
+        <View
+          style={{
+            gap: 10,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
         >
-          {title}
-        </Text>
+          {Icon}
+          <Text
+            style={[
+              {
+                fontFamily: FONTS.bold,
+                color: COLORS.white,
+                fontSize: 18,
+              },
+              titleStyle,
+            ]}
+          >
+            {title}
+          </Text>
+        </View>
       )}
     </TouchableOpacity>
   );

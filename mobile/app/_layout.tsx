@@ -27,7 +27,6 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { LogBox, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
 LogBox.ignoreLogs;
 LogBox.ignoreAllLogs();
 SplashScreen.preventAutoHideAsync();
@@ -90,13 +89,14 @@ const Layout = () => {
           alignItems: "center",
         }}
       >
-        <Text>Missing {keys.length - 4} keys.</Text>
+        <Text>Missing {keys.length - 5} keys.</Text>
       </View>
     );
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <StatusBar style="light" />
+
       <ReactQueryProvider>
         <ConvexProvider>
           <ClerkProvider>

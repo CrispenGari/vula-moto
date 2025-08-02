@@ -17,6 +17,7 @@ import Constants from "expo-constants";
 import React from "react";
 import {
   Dimensions,
+  Image,
   Platform,
   Text,
   TouchableOpacity,
@@ -162,15 +163,14 @@ const ProductMapBottomSheet = React.forwardRef<
             description="This is you."
             identifier="you"
           >
-            {/* <Image
+            <Image
               style={{
                 width: 35,
                 height: 35,
                 resizeMode: "contain",
-                top: -3,
               }}
-              source={require("@/assets/images/customer.png")}
-            /> */}
+              source={require("@/assets/images/user.png")}
+            />
           </Marker>
           <MapViewDirections
             origin={{
@@ -201,12 +201,7 @@ const ProductMapBottomSheet = React.forwardRef<
               longitude: product.location.lon,
             }}
           >
-            <MaterialIcons
-              name="miscellaneous-services"
-              size={24}
-              color={COLORS.tertiary}
-            />
-            {/* <Image
+            <Image
               style={{
                 width: 35,
                 height: 35,
@@ -214,18 +209,12 @@ const ProductMapBottomSheet = React.forwardRef<
                 top: -3,
               }}
               source={
-                product.type === "produce"
-                  ? require("@/assets/images/produce.png")
-                  : require("@/assets/images/stock.png")
+                product.type !== "services"
+                  ? require("@/assets/images/service.png")
+                  : require("@/assets/images/spares.png")
               }
-            /> */}
+            />
           </Marker>
-          {/* <CustomMarker
-            coords={{
-              lat: location.lat,
-              lon: location.lon,
-            }}
-          /> */}
         </MapView>
 
         <Animated.View

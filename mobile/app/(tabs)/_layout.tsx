@@ -14,6 +14,7 @@ const Layout = () => {
   const unread = useQuery(api.api.messages.count, {
     id: me?._id,
   });
+  const user = useQuery(api.api.users.getById, { id: me?._id });
   return (
     <Tabs
       initialRouteName="home"
@@ -26,8 +27,8 @@ const Layout = () => {
           elevation: 0,
         },
         tabBarHideOnKeyboard: true,
-        tabBarInactiveTintColor: COLORS.primary,
-        tabBarActiveTintColor: COLORS.tertiary,
+        tabBarInactiveTintColor: COLORS.black,
+        tabBarActiveTintColor: COLORS.red,
         headerShown: true,
         tabBarLabelStyle: {
           fontFamily: FONTS.bold,
@@ -65,16 +66,21 @@ const Layout = () => {
           ),
         }}
       />
+
       <Tabs.Screen
         name="create"
         options={{
           headerShown: false,
           title: "Publish",
+          tabBarStyle: {
+            display: user?.accountType === "seller" ? "flex" : "none",
+          },
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cloud-upload-outline" color={color} size={size} />
           ),
         }}
       />
+
       <Tabs.Screen
         name="chats"
         options={{

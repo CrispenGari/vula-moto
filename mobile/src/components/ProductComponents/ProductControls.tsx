@@ -10,11 +10,13 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useMutation, useQuery } from "convex/react";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import Animated, { SlideInDown } from "react-native-reanimated";
 import RateSellerBottomSheet from "../BottomSheets/RateSellerBottomSheet";
 import Card from "../Card/Card";
+import Button from "../Button/Button";
+import UserReviewBottomSheet from "../BottomSheets/UserReviewBottomSheet";
 
 const ProductControls = ({
   userId,
@@ -34,6 +36,7 @@ const ProductControls = ({
   const { me } = useMeStore();
   const router = useRouter();
   const rateSellerBottomSheet = React.useRef<BottomSheetModal>(null);
+  const userReviewBottomSheet = React.useRef<BottomSheetModal>(null);
   const removeProductMutation = useMutation(api.api.items.remove);
 
   const exists = React.useMemo(() => {
@@ -170,6 +173,9 @@ const ProductControls = ({
       {user?._id ? (
         <RateSellerBottomSheet ref={rateSellerBottomSheet} userId={user._id} />
       ) : null}
+      {user?._id ? (
+        <UserReviewBottomSheet ref={userReviewBottomSheet} userId={user._id} />
+      ) : null}
       <Animated.View entering={SlideInDown.duration(400).delay(400)}>
         <Card
           style={{
@@ -221,27 +227,46 @@ const ProductControls = ({
             </>
           ) : (
             <>
-              <TouchableOpacity onPress={addToWishlist} style={styles.iconBtn}>
-                <Ionicons
-                  name={exists ? "heart" : "heart-outline"}
-                  size={25}
-                  color={COLORS.tertiary}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={chat} style={styles.iconBtn}>
-                <Ionicons
-                  name="chatbox-outline"
-                  size={25}
-                  color={COLORS.tertiary}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={rateSeller} style={styles.iconBtn}>
-                <MaterialIcons
-                  name="star-rate"
-                  size={25}
-                  color={COLORS.tertiary}
-                />
-              </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: "row",
+                  flex: 1,
+                  justifyContent: "space-between",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={addToWishlist}
+                  style={styles.iconBtn}
+                >
+                  <Ionicons
+                    name={exists ? "heart" : "heart-outline"}
+                    size={25}
+                    color={COLORS.tertiary}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={chat} style={styles.iconBtn}>
+                  <Ionicons
+                    name="chatbox-outline"
+                    size={25}
+                    color={COLORS.tertiary}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={rateSeller} style={styles.iconBtn}>
+                  <MaterialIcons
+                    name="star-rate"
+                    size={25}
+                    color={COLORS.tertiary}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Button
+                title="Write a Review"
+                style={{
+                  flex: 1,
+                  backgroundColor: COLORS.tertiary,
+                }}
+                onPress={() => userReviewBottomSheet?.current?.present()}
+              />
             </>
           )}
         </Card>

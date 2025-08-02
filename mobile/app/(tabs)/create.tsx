@@ -5,7 +5,6 @@ import { useSettingsStore } from "@/src/store/settingsStore";
 import { useMeStore } from "@/src/store/useMeStore";
 import { onImpact } from "@/src/utils";
 import {
-  FontAwesome5,
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
@@ -23,6 +22,7 @@ import Animated, { SlideInLeft } from "react-native-reanimated";
 
 import { ScrollView } from "react-native-gesture-handler";
 import MapView, { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from "react-native-maps";
+import Button from "@/src/components/Button/Button";
 
 const Page = () => {
   const { location } = useLocationStore();
@@ -276,6 +276,16 @@ const Page = () => {
             }}
           />
         </Card>
+
+        <Button
+          title="Cancel"
+          style={{
+            width: 300,
+            backgroundColor: COLORS.tertiary,
+            marginVertical: 20,
+          }}
+          onPress={() => router.replace("..")}
+        />
       </ScrollView>
     </>
   );

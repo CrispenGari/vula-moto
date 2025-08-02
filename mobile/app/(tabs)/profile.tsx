@@ -3,7 +3,7 @@ import { COLORS, FONTS } from "@/src/constants";
 import { useSettingsStore } from "@/src/store/settingsStore";
 import { onFetchUpdateAsync, onImpact, rateApp } from "@/src/utils";
 import { useAuth } from "@clerk/clerk-expo";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { StackActions } from "@react-navigation/native";
@@ -12,6 +12,7 @@ import * as Constants from "expo-constants";
 import { useNavigation, useRouter } from "expo-router";
 import React from "react";
 import {
+  ActivityIndicator,
   Linking,
   ScrollView,
   Share,
@@ -27,19 +28,23 @@ import ProfileCard from "@/src/components/ProfileCard/ProfileCard";
 import SettingItem from "@/src/components/SettingItem/SettingItem";
 import { useMeStore } from "@/src/store/useMeStore";
 import LanguageTranslationSettingComponent from "@/src/components/LanguageTranslationSettingComponent/LanguageTranslationSettingComponent";
+import NewUserBottomSheet from "@/src/components/BottomSheets/NewUserBottomSheet";
 
 const Page = () => {
   const navigation = useNavigation();
   const headerHeight = useHeaderHeight();
   const router = useRouter();
   const { isLoaded, isSignedIn, signOut } = useAuth();
-  const { settings, restore } = useSettingsStore();
+  const { settings } = useSettingsStore();
   const { destroy } = useMeStore();
   const tnCBottomSheetRef = React.useRef<BottomSheetModal>(null);
   const ppBottomSheetRef = React.useRef<BottomSheetModal>(null);
   const helpBottomSheetRef = React.useRef<BottomSheetModal>(null);
   const userBiographyBottomSheet = React.useRef<BottomSheetModal>(null);
+  const newUserBottomSheetRef = React.useRef<BottomSheetModal>(null);
   const { me } = useMeStore();
+  const [loading, setLoading] = React.useState(false);
+
   const user = useQuery(api.api.users.getById, {
     id: me?._id,
   });
@@ -59,9 +64,11 @@ const Page = () => {
     if (settings.haptics) {
       await onImpact();
     }
+    setLoading(true);
     await signOut().finally(() => {
       destroy();
-      restore();
+
+      setLoading(false);
       if (router.canGoBack()) {
         navigation.dispatch(StackActions.popToTop());
       }
@@ -87,6 +94,7 @@ const Page = () => {
       <PPBottomSheet ref={ppBottomSheetRef} />
       <HelpBottomSheet ref={helpBottomSheetRef} />
       <ProfileCard isLoading={!isLoaded} />
+      <NewUserBottomSheet ref={newUserBottomSheetRef} />
       <Text style={styles.headerText}>Settings</Text>
       <Card
         style={{
@@ -101,12 +109,23 @@ const Page = () => {
             if (settings.haptics) {
               await onImpact();
             }
-            // router.navigate("/(profile)/pi");
+            router.navigate("/(profile)/pi");
           }}
           title="Personal Information"
           Icon={
             <Ionicons name="person-outline" size={18} color={COLORS.black} />
           }
+        />
+
+        <SettingItem
+          onPress={async () => {
+            if (settings.haptics) {
+              await onImpact();
+            }
+            newUserBottomSheetRef.current?.present();
+          }}
+          title="User Privileges"
+          Icon={<Feather name="user-check" size={18} color={COLORS.black} />}
         />
         <SettingItem
           onPress={async () => {
@@ -299,9 +318,16 @@ const Page = () => {
       </Card>
 
       <TouchableOpacity
-        style={{ alignSelf: "center", marginTop: 20 }}
+        style={{
+          alignSelf: "center",
+          marginTop: 20,
+          flexDirection: "row",
+          gap: 5,
+        }}
         onPress={logout}
+        disabled={loading}
       >
+        <ActivityIndicator size={"small"} color={COLORS.red} />
         <Text
           style={{
             fontFamily: FONTS.bold,

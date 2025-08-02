@@ -305,6 +305,40 @@ export const updateBio = mutation({
   },
 });
 
+export const updateProfile = mutation({
+  args: {
+    id: v.optional(v.id("users")),
+    biography: v.optional(v.string()),
+    phoneNumber: v.optional(v.string()),
+    verified: v.optional(v.boolean()),
+    accountType: v.optional(v.union(v.literal("buyer"), v.literal("seller"))),
+  },
+  handler: async (
+    { db },
+    { id, biography, phoneNumber, verified, accountType }
+  ) => {
+    try {
+      const me = await db
+        .query("users")
+        .filter((q) => q.eq(q.field("_id"), id))
+        .first();
+      if (!!!me) return null;
+      await db.patch(me._id, {
+        biography: biography
+          ? biography.trim()
+          : "Hey there I am a Vula Moto user.",
+        phoneNumber,
+        verified,
+        accountType,
+        new: false,
+      });
+      return me._id;
+    } catch (error) {
+      return null;
+    }
+  },
+});
+
 export const updateLocation = mutation({
   args: {
     id: v.optional(v.id("users")),

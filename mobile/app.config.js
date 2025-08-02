@@ -17,6 +17,7 @@ module.exports = {
         backgroundColor: "#ffffff",
       },
       edgeToEdgeEnabled: true,
+      package: "com.crispengari.vulamoto",
     },
     web: {
       bundler: "metro",
@@ -31,7 +32,7 @@ module.exports = {
           image: "./assets/images/splash.png",
           imageWidth: 200,
           resizeMode: "contain",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#271818ff",
         },
       ],
     ],

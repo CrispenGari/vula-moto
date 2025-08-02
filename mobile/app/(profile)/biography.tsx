@@ -132,6 +132,7 @@ const Page = () => {
           headerLargeTitle: true,
           headerLargeTitleShadowVisible: true,
           headerShadowVisible: false,
+
           headerLeft: () => (
             <TouchableOpacity
               style={{ width: 40 }}
@@ -142,12 +143,15 @@ const Page = () => {
                 router.back();
               }}
             >
-              <Ionicons name="chevron-back" size={20} color={COLORS.gray} />
+              <Ionicons name="chevron-back" size={20} color={COLORS.white} />
             </TouchableOpacity>
           ),
 
           headerLargeTitleStyle: { fontFamily: FONTS.bold, fontSize: 25 },
-          headerTitleStyle: { fontFamily: FONTS.bold },
+          headerTitleStyle: { fontFamily: FONTS.bold, color: COLORS.white },
+          headerStyle: {
+            backgroundColor: COLORS.tertiary,
+          },
         }}
       />
       <Spinner visible={state.loading} animation="fade" />

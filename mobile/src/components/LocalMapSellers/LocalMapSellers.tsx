@@ -1,4 +1,11 @@
-import { View, Text, Dimensions, Platform, Image } from "react-native";
+import {
+  View,
+  Text,
+  Dimensions,
+  Platform,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { useMeStore } from "@/src/store/useMeStore";
 import { useLocationStore } from "@/src/store/locationStore";
@@ -12,7 +19,12 @@ import MapView, {
 } from "react-native-maps";
 import { calculateDistance } from "@/src/utils/distance";
 import Animated, { SlideInLeft } from "react-native-reanimated";
-
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { onImpact } from "@/src/utils";
+import { useSettingsStore } from "@/src/store/settingsStore";
+import LocalProductsBottomSheet from "../BottomSheets/LocalProductsBottomSheet";
+import MapViewDirections from "react-native-maps-directions";
+import Constants from "expo-constants";
 const { height } = Dimensions.get("window");
 
 const LocalMapSellers = () => {
@@ -21,8 +33,12 @@ const LocalMapSellers = () => {
   const sellers = useQuery(api.api.users.getLocalSeller, {
     id: me?._id,
   });
+  const { settings } = useSettingsStore();
+  const localProductsBottomSheetRef = React.useRef<BottomSheetModal>(null);
+
   return (
     <View style={{}}>
+      <LocalProductsBottomSheet ref={localProductsBottomSheetRef} />
       <View style={{}}>
         <Text
           style={{
@@ -74,7 +90,16 @@ const LocalMapSellers = () => {
           title="You"
           description="This is you."
           identifier="you"
-        />
+        >
+          <Image
+            style={{
+              width: 35,
+              height: 35,
+              resizeMode: "contain",
+            }}
+            source={require("@/assets/images/user.png")}
+          />
+        </Marker>
 
         {sellers?.map((seller, index) => (
           <Marker
@@ -98,12 +123,12 @@ const LocalMapSellers = () => {
           >
             <Image
               style={{
-                width: 40,
-                height: 40,
-                resizeMode: "cover",
+                width: 35,
+                height: 35,
+                resizeMode: "contain",
                 top: -3,
               }}
-              //   source={require("@/assets/images/seller.png")}
+              source={require("@/assets/images/service.png")}
             />
           </Marker>
         ))}
@@ -115,25 +140,34 @@ const LocalMapSellers = () => {
         }}
         entering={SlideInLeft.duration(200).delay(400)}
       >
-        <Text
-          style={{
-            fontFamily: FONTS.bold,
-            fontSize: 18,
+        <TouchableOpacity
+          onPress={async () => {
+            if (settings) {
+              await onImpact();
+            }
+            localProductsBottomSheetRef.current?.present();
           }}
         >
-          5+ services stations • 157+ spares listed near you.
-        </Text>
+          <Text
+            style={{
+              fontFamily: FONTS.bold,
+              fontSize: 18,
+            }}
+          >
+            5+ services stations • 157+ spares listed near you.
+          </Text>
 
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: FONTS.regular,
-            color: COLORS.secondary,
-          }}
-        >
-          {location.address.name}, {location.address.street}{" "}
-          {location.address.streetNumber}, {location.address.city}
-        </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: FONTS.regular,
+              color: COLORS.secondary,
+            }}
+          >
+            {location.address.name}, {location.address.street}{" "}
+            {location.address.streetNumber}, {location.address.city}
+          </Text>
+        </TouchableOpacity>
       </Animated.View>
     </View>
   );

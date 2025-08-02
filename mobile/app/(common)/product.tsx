@@ -38,6 +38,8 @@ import { calculateDistance } from "@/src/utils/distance";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useMutation } from "@tanstack/react-query";
 import { translateText } from "@/src/utils/react-query";
+import CheckoutComponent from "@/src/components/CheckoutComponent/CheckoutComponent";
+import { useMeStore } from "@/src/store/useMeStore";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocal);
@@ -56,9 +58,8 @@ const Page = () => {
   });
   const productMapBottomSheetRef = React.useRef<BottomSheetModal>(null);
   const location = useCurrentLocation();
-
   const [description, setDescription] = React.useState("");
-
+  const { me } = useMeStore();
   const language = React.useMemo(
     () => LANGUAGE_OPTIONS.find((l) => l.value === settings.lang)!,
     [settings]
@@ -338,7 +339,9 @@ const Page = () => {
                   if (settings.haptics) {
                     await onImpact();
                   }
-
+                  if (!!!product || product?.userId === me?._id) {
+                    return;
+                  }
                   productMapBottomSheetRef.current?.present();
                 }}
               >
@@ -496,6 +499,16 @@ const Page = () => {
             </Card>
           )}
         </Animated.View>
+        <View style={{ height: 5 }} />
+        {!!!product || product?.userId === me?._id ? null : (
+          <CheckoutComponent
+            id={params.id}
+            delivery={`To be ${product?.delivery ? "collect" : product.delivery}ed`}
+            price={product.price}
+          />
+        )}
+
+        <View style={{ height: 10 }} />
         {!!!product ? (
           <ProductUserSkeleton />
         ) : (

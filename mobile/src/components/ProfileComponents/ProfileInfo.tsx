@@ -4,15 +4,20 @@ import { useSettingsStore } from "@/src/store/settingsStore";
 import { onImpact } from "@/src/utils";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React from "react";
-import { Platform, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import Animated, { SlideInRight } from "react-native-reanimated";
 import UserBiographyBottomSheet from "../BottomSheets/UserBiographyBottomSheet";
 import Card from "../Card/Card";
 import ContentLoader from "../ContentLoader/ContentLoader";
+import Button from "../Button/Button";
+import { useRouter } from "expo-router";
+import { useMeStore } from "@/src/store/useMeStore";
 
 const ProfileInfo = ({ user }: { user?: TUser | null }) => {
   const { settings } = useSettingsStore();
   const bioBottomSheetRef = React.useRef<BottomSheetModal>(null);
+  const router = useRouter();
+  const { me } = useMeStore();
   if (!!!user)
     return (
       <Animated.View
@@ -121,50 +126,21 @@ const ProfileInfo = ({ user }: { user?: TUser | null }) => {
             gap: 10,
           }}
         >
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text
-              style={{
-                fontSize: 12,
-                fontFamily: FONTS.bold,
-                color: COLORS.gray,
-                marginBottom: Platform.select({
-                  ios: -5,
-                  android: -8,
-                }),
-              }}
-            >
-              Followers
-            </Text>
-            <Text
-              style={{
-                fontFamily: FONTS.bold,
-              }}
-            >
-              {user.followers?.length || 0}
-            </Text>
-          </View>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text
-              style={{
-                fontSize: 12,
-                fontFamily: FONTS.bold,
-                color: COLORS.gray,
-                marginBottom: Platform.select({
-                  ios: -5,
-                  android: -8,
-                }),
-              }}
-            >
-              Followings
-            </Text>
-            <Text
-              style={{
-                fontFamily: FONTS.bold,
-              }}
-            >
-              {user.following?.length || 0}
-            </Text>
-          </View>
+          <Button
+            title={"Profile Reviews"}
+            style={{
+              width: "100%",
+              backgroundColor: COLORS.tertiary,
+            }}
+            onPress={() =>
+              router.navigate({
+                pathname: "/(common)/reviews",
+                params: {
+                  id: user._id,
+                },
+              })
+            }
+          />
         </View>
       </Card>
     </Animated.View>

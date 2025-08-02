@@ -67,6 +67,7 @@ const Page = () => {
           flex: 1,
           padding: 10,
           paddingTop: Platform.select({ ios: 150, android: 10 }),
+          alignSelf: "center",
         }}
       >
         <ProfileUserCard user={user} />
