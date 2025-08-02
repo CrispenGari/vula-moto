@@ -46,9 +46,9 @@ const Product = ({
         maxWidth: 200,
         minWidth: 150,
         height: 300,
-        backgroundColor: COLORS.white,
         position: "relative",
         marginVertical: 15,
+        backgroundColor: COLORS.main,
       }}
       onPress={async () => {
         if (settings.haptics) {
@@ -88,7 +88,7 @@ const Product = ({
       ) : null}
       <View
         style={{
-          backgroundColor: COLORS.white,
+          backgroundColor: COLORS.main,
           justifyContent: "center",
           alignItems: "center",
           width: 30,
@@ -237,6 +237,7 @@ const ProductUser = ({ id }: { id: Id<"users"> }) => {
         gap: 10,
         flexDirection: "row",
         alignItems: "flex-start",
+        backgroundColor: COLORS.main,
       }}
       disabled={user.id === me?.id}
       onPress={async () => {

@@ -21,8 +21,8 @@ export const userArguments = {
 
   phoneNumber: v.optional(v.string()),
   biography: v.optional(v.string()),
-  stocks: v.optional(v.array(v.string())),
-  produces: v.optional(v.array(v.string())),
+  services: v.optional(v.array(v.string())),
+  spares: v.optional(v.array(v.string())),
 
   ratting: v.optional(v.array(v.number())),
   bookmarks: v.optional(v.array(v.id("items"))),

@@ -116,7 +116,7 @@ const ProductControls = ({
 
     Alert.alert(
       APP_NAME,
-      `Are you sure you want to remove '${title}' from the Mzansi Mart.`,
+      `Are you sure you want to remove '${title}' from the Vula Moto.`,
       [
         {
           text: "YES",

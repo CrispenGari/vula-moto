@@ -13,9 +13,9 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Animated, { SlideInLeft } from "react-native-reanimated";
-// import AnalyticsBottomSheet from "../BottomSheets/AnalyticsBottomSheet";
 import Card from "../Card/Card";
 import ContentLoader from "../ContentLoader/ContentLoader";
+import AnalyticsBottomSheet from "../BottomSheets/AnalyticsBottomSheet";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocal);
@@ -124,10 +124,9 @@ const ProfileUserCard = ({ user }: { user?: TUser | null }) => {
     );
   return (
     <Animated.View entering={SlideInLeft.duration(400).delay(400)}>
-      {user?._id
-        ? null
-        : // <AnalyticsBottomSheet id={user._id} ref={analyticsBottomSheetRef} />
-          null}
+      {!!!user?._id ? null : (
+        <AnalyticsBottomSheet id={user._id} ref={analyticsBottomSheetRef} />
+      )}
       <Card
         style={{
           width: "100%",

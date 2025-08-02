@@ -296,7 +296,7 @@ export const updateBio = mutation({
       await db.patch(me._id, {
         biography: biography
           ? biography.trim()
-          : "Hey there I am a Mzansi Mart user.",
+          : "Hey there I am a Vula Moto user.",
       });
       return me._id;
     } catch (error) {

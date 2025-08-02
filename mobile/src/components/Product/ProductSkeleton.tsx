@@ -12,7 +12,7 @@ const ProductSkeleton = ({ withoutUser }: { withoutUser?: boolean }) => {
         maxWidth: 200,
         minWidth: 150,
         height: 300,
-        backgroundColor: COLORS.white,
+        backgroundColor: COLORS.main,
         position: "relative",
         marginVertical: 15,
       }}

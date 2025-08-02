@@ -2,8 +2,6 @@ import { COLORS, FONTS } from "@/src/constants";
 import { useSettingsStore } from "@/src/store/settingsStore";
 import { onImpact } from "@/src/utils";
 import {
-  FontAwesome5,
-  FontAwesome6,
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
@@ -15,7 +13,7 @@ import {
   useBottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const categories = [
   {
@@ -155,26 +153,3 @@ const ItemsCategoryBottomSheet = React.forwardRef<
 });
 
 export default ItemsCategoryBottomSheet;
-
-const styles = StyleSheet.create({
-  btn: {
-    width: 80,
-    height: 80,
-    justifyContent: "center",
-    padding: 5,
-    alignItems: "center",
-    borderRadius: 5,
-  },
-  tag: {
-    width: 20,
-    height: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1,
-    position: "absolute",
-    backgroundColor: COLORS.tertiary,
-    top: 0,
-    borderRadius: 3,
-    left: 0,
-  },
-});

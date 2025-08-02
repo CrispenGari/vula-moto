@@ -165,12 +165,15 @@ const PersonalInformation = () => {
                 router.back();
               }}
             >
-              <Ionicons name="chevron-back" size={20} color={COLORS.gray} />
+              <Ionicons name="chevron-back" size={20} color={COLORS.white} />
             </TouchableOpacity>
           ),
 
           headerLargeTitleStyle: { fontFamily: FONTS.bold, fontSize: 25 },
-          headerTitleStyle: { fontFamily: FONTS.bold },
+          headerTitleStyle: { fontFamily: FONTS.bold, color: COLORS.white },
+          headerStyle: {
+            backgroundColor: COLORS.tertiary,
+          },
         }}
       />
       <Spinner visible={state.loading || !isLoaded} animation="fade" />

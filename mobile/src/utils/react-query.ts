@@ -24,6 +24,16 @@ export const translateText = async ({
   return data;
 };
 
+export const ask = async ({ message }: { message: string }) => {
+  const url = "http://10.20.62.129:3002/api/v1/ask";
+  const res = fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
+  });
+  return (await res).json();
+};
+
 export const uploadFile = async ({ file }: { file: Blob }) => {
   const url = `${Constants.expoConfig?.extra?.EXPO_PUBLIC_CONVEX_SITE!}/upload-file`;
   const res = await fetch(url, {

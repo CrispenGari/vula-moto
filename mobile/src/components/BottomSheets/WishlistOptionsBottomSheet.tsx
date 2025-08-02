@@ -91,7 +91,7 @@ const WishlistOptionsBottomSheet = React.forwardRef<BottomSheetModal, {}>(
                   },
                 ]}
               >
-                You have {wishlist?.length} produce(s) and stock(s) in your
+                You have {wishlist?.length} item(s) and stock(s) in your
                 wishlist.
               </Text>
 

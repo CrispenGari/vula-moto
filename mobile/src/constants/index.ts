@@ -30,7 +30,7 @@ export const DELIVERY_OPTIONS = [
 ];
 
 export const AUDIOS = {
-  //   published: require("@/assets/sounds/published.mp3"),
+  published: require("@/assets/sounds/published.mp3"),
 };
 
 export const Fonts = {
