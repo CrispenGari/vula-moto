@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "convex/react";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
 
 const Page = () => {
   const { category } = useLocalSearchParams<{
@@ -62,6 +62,9 @@ const Page = () => {
           padding: 10,
           paddingBottom: 100,
           backgroundColor: COLORS.main,
+          paddingTop: Platform.select({
+            ios: 150,
+          }),
         }}
         showsVerticalScrollIndicator={false}
       >

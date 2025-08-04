@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "convex/react";
 import { Stack, useRouter } from "expo-router";
 import React from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
 
 const Page = () => {
   const ids = useQuery(api.api.items.getByCategoryWithoutPagination, {
@@ -59,6 +59,9 @@ const Page = () => {
         contentContainerStyle={{
           padding: 10,
           paddingBottom: 100,
+          paddingTop: Platform.select({
+            ios: 150,
+          }),
         }}
         showsVerticalScrollIndicator={false}
       >
